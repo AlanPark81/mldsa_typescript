@@ -1,81 +1,83 @@
-class ListNode<T> {
-    prev_: ListNode<T>;
-    next_: ListNode<T>;
-    data_: T;
-
-    public constructor(data: T) {
-        this.data_ = data;
-        this.prev_ = null;
-        this.next_ = null;
-    }
+interface IListNode<T> {
+    prev: IListNode<T>;
+    next: IListNode<T>;
+    data: T;
 }
 
 export class LinkedList<T> {
-    private head_: ListNode<T>;
-    private tail_: ListNode<T>;
+    private head: IListNode<T>;
+    private tail: IListNode<T>;
 
     public constructor() {
-        this.head_ = null;
-        this.tail_ = null;
+        this.head = null;
+        this.tail = null;
     }
 
-    public getHead() : T {
-        if(this.head_ === null ) throw Error();
-        return this.head_.data_;
+    public isEmpty(): boolean {
+        return this.head === null;
     }
 
-    public getTail() : T {
-        return this.tail_.data_;
-    }
-
-    public insertBack(data:T) {
-        if( this.head_ === null ) {
-            this.head_ = new ListNode(data);
-            this.tail_ = this.head_;
-            return
+    public getHead(): T {
+        if ( this.head === null ) {
+            throw Error();
         }
-        this.tail_.next_ = new ListNode(data);
-        this.tail_.next_.prev_ = this.tail_;
-        this.tail_ = this.tail_.next_;
+        return this.head.data;
     }
 
-    public insertFront(data:T) {
-        if( this.head_ === null ) {
-            this.head_ = new ListNode(data);
-            this.tail_ = this.head_;
-            return
+    public getTail(): T {
+        return this.tail.data;
+    }
+
+    public insertBack(data: T) {
+        if ( this.head === null ) {
+            this.head = {prev: null, data, next: null};
+            this.tail = this.head;
+            return;
+        }
+        this.tail.next = {prev: this.tail, data, next: null};
+        this.tail = this.tail.next;
+    }
+
+    public insertFront(data: T) {
+        if ( this.head === null ) {
+            this.head = {prev: null, data, next: null};
+            this.tail = this.head;
+            return;
         }
 
-        this.head_.prev_ = new ListNode(data);
-        this.head_.prev_.next_ = this.head_;
-        this.head_ = this.head_.prev_;
+        this.head.prev = {prev: null, data, next: this.head};
+        this.head = this.head.prev;
     }
 
-    public popFront() : T {
-        if(this.head_ === null ) throw Error();
+    public popFront(): T {
+        if ( this.head === null ) {
+            throw Error();
+        }
 
-        let ret_val = this.head_.data_;
-        if(this.head_ === this.tail_ ) {
-            this.head_ = null;
-            this.tail_ = null;
+        const retVal = this.head.data;
+        if ( this.head === this.tail ) {
+            this.head = null;
+            this.tail = null;
         } else {
-            this.head_.next_.prev_ = null;
-            this.head_ = this.head_.next_;
+            this.head.next.prev = null;
+            this.head = this.head.next;
         }
-        return ret_val
+        return retVal;
     }
 
-    public popBack() : T {
-        if(this.tail_ === null ) throw Error();
-
-        let ret_val = this.tail_.data_;
-        if(this.head_ === this.tail_) {
-            this.head_ = null;
-            this.tail_ = null;
-        } else {
-            this.tail_.prev_.next_ = null;
-            this.tail_ = this.tail_.prev_;
+    public popBack(): T {
+        if ( this.tail === null ) {
+            throw Error();
         }
-        return ret_val;
+
+        const retVal = this.tail.data;
+        if (this.head === this.tail) {
+            this.head = null;
+            this.tail = null;
+        } else {
+            this.tail.prev.next = null;
+            this.tail = this.tail.prev;
+        }
+        return retVal;
     }
 }

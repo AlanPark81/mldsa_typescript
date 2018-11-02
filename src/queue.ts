@@ -1,25 +1,29 @@
-import { LinkedList } from "./linkedlist"
+import { LinkedList } from "./linkedlist";
 
 export class Queue<T> {
-    private list_ : LinkedList<T>;
+    private list: LinkedList<T>;
 
     public constructor() {
-        this.list_ = new LinkedList();
+        this.list = new LinkedList();
     }
 
-    public front() : T {
-        return this.list_.getHead();
+    public isEmpty(): boolean {
+        return this.list.isEmpty();
     }
 
-    public back() : T {
-        return this.list_.getTail();
+    public front(): T {
+        return this.list.getHead();
     }
 
-    public enqueue(data : T) {
-        this.list_.insertBack(data);
+    public back(): T {
+        return this.list.getTail();
     }
 
-    public dequeue() : T {
-        return this.list_.popFront();
+    public enqueue(data: T) {
+        this.list.insertBack(data);
+    }
+
+    public dequeue(): T {
+        return this.list.popFront();
     }
 }

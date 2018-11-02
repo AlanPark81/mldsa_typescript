@@ -1,99 +1,100 @@
-import { LinkedList } from "../src/linkedlist"
+import { LinkedList } from "../src/linkedlist";
 
 describe("LinkedList", () => {
     it("insert_front & insert_back", () => {
-        let list = new LinkedList<number>();
-        expect(()=>{list.getHead()}).toThrow();
-        for(var i=0 ; i<100 ;i++ ) {
-            if(i%2 == 0){
+        const list = new LinkedList<number>();
+        expect(() => {list.getHead(); }).toThrow();
+        for ( let i = 0 ; i < 100 ; i++ ) {
+            if ( i % 2 === 0 ) {
                 list.insertFront(i);
                 expect(list.getHead()).toBe(i);
             } else {
                 list.insertBack(i);
                 expect(list.getTail()).toBe(i);
             }
-            if(i==0){
-                expect(list.getHead()).toBe(list.getTail())
+
+            if ( i === 0 ) {
+                expect(list.getHead()).toBe(list.getTail());
             } else {
-                expect(list.getHead()).not.toBe(list.getTail())
+                expect(list.getHead()).not.toBe(list.getTail());
             }
         }
     });
 
     it("pop_back & pop_front", () => {
         let list = new LinkedList<number>();
-        expect(()=>{list.getHead()}).toThrow();
-        for(var i = 0 ; i<3 ;i++ ) {
-            if(i%2 == 0){
+        expect(() => { list.getHead(); }).toThrow();
+        for ( let i = 0 ; i < 3 ; i++ ) {
+            if ( i % 2 === 0 ) {
                 list.insertFront(i);
                 expect(list.getHead()).toBe(i);
             } else {
                 list.insertBack(i);
                 expect(list.getTail()).toBe(i);
             }
-            if(i==0){
-                expect(list.getHead()).toBe(list.getTail())
+            if ( i === 0 ) {
+                expect(list.getHead()).toBe(list.getTail());
             } else {
-                expect(list.getHead()).not.toBe(list.getTail())
+                expect(list.getHead()).not.toBe(list.getTail());
             }
         }
 
-        for(var i = 0 ; i < 3 ; i++) {
-            var modulo = list.popFront()%2;
-            if(i<2)
+        for ( let i = 0 ; i < 3 ; i++ ) {
+            const modulo = list.popFront() % 2;
+            if ( i < 2 ) {
                 expect(modulo).toBe(0);
-            else
+            } else {
                 expect(modulo).toBe(1);
+            }
         }
 
         list = new LinkedList();
-        for(var i = 0 ; i < 3 ; i++) {
+        for ( let i = 0 ; i < 3 ; i++) {
             list.insertBack(i);
         }
 
-        for(var i = 0 ; i < 3 ; i++) {
-            expect(list.popBack()).toBe(2-i);
+        for ( let i = 0 ; i < 3 ; i++) {
+            expect(list.popBack()).toBe(2 - i );
         }
 
         list = new LinkedList();
-        for(var i = 0 ; i < 3 ; i++) {
+        for ( let i = 0 ; i < 3 ; i++) {
             list.insertBack(i);
         }
 
-        for(var i = 0 ; i < 3 ; i++) {
+        for ( let i = 0 ; i < 3 ; i++) {
             expect(list.popFront()).toBe(i);
         }
 
-        expect(()=>{
-            list.popBack()
+        expect(() => {
+            list.popBack();
         }).toThrow();
 
-        expect(()=>{
-            list.getHead()
+        expect(() => {
+            list.getHead();
         }).toThrow();
-
 
         list = new LinkedList();
-        for(var i = 0 ; i < 3 ; i++) {
+        for ( let i = 0 ; i < 3 ; i++) {
             list.insertBack(i);
         }
 
-        for(var i = 0 ; i < 3 ; i++) {
+        for ( let i = 0 ; i < 3 ; i++) {
             expect(list.popFront()).toBe(i);
         }
         list = new LinkedList();
-        for(var i = 0 ; i < 3 ; i++) {
+        for ( let i = 0 ; i < 3 ; i++) {
             list.insertFront(i);
         }
 
-        for(var i = 0 ; i < 3 ; i++) {
-            expect(list.popFront()).toBe(2-i);
+        for ( let i = 0 ; i < 3 ; i++) {
+            expect(list.popFront()).toBe(2 - i );
         }
-        expect(()=>{
-            list.popFront()
+        expect(() => {
+            list.popFront();
         }).toThrow();
-        expect(()=>{
-            list.getTail()
+        expect(() => {
+            list.getTail();
         }).toThrow();
-    })
+    });
 });
