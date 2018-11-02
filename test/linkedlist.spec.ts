@@ -23,7 +23,7 @@ describe("LinkedList", () => {
     it("pop_back & pop_front", () => {
         let list = new LinkedList<number>();
         expect(()=>{list.getHead()}).toThrow();
-        for(var i = 0 ; i<100 ;i++ ) {
+        for(var i = 0 ; i<3 ;i++ ) {
             if(i%2 == 0){
                 list.insertFront(i);
                 expect(list.getHead()).toBe(i);
@@ -38,22 +38,32 @@ describe("LinkedList", () => {
             }
         }
 
-        for(var i = 0 ; i < 100 ; i++) {
+        for(var i = 0 ; i < 3 ; i++) {
             var modulo = list.popFront()%2;
-            if(i<50)
+            if(i<2)
                 expect(modulo).toBe(0);
             else
                 expect(modulo).toBe(1);
         }
 
         list = new LinkedList();
-        for(var i = 0 ; i < 100 ; i++) {
+        for(var i = 0 ; i < 3 ; i++) {
             list.insertBack(i);
         }
 
-        for(var i = 0 ; i < 100 ; i++) {
-            expect(list.popBack()).toBe(99-i);
+        for(var i = 0 ; i < 3 ; i++) {
+            expect(list.popBack()).toBe(2-i);
         }
+
+        list = new LinkedList();
+        for(var i = 0 ; i < 3 ; i++) {
+            list.insertBack(i);
+        }
+
+        for(var i = 0 ; i < 3 ; i++) {
+            expect(list.popFront()).toBe(i);
+        }
+
         expect(()=>{
             list.popBack()
         }).toThrow();
@@ -64,12 +74,20 @@ describe("LinkedList", () => {
 
 
         list = new LinkedList();
-        for(var i = 0 ; i < 100 ; i++) {
+        for(var i = 0 ; i < 3 ; i++) {
             list.insertBack(i);
         }
 
-        for(var i = 0 ; i < 100 ; i++) {
+        for(var i = 0 ; i < 3 ; i++) {
             expect(list.popFront()).toBe(i);
+        }
+        list = new LinkedList();
+        for(var i = 0 ; i < 3 ; i++) {
+            list.insertFront(i);
+        }
+
+        for(var i = 0 ; i < 3 ; i++) {
+            expect(list.popFront()).toBe(2-i);
         }
         expect(()=>{
             list.popFront()
