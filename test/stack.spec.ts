@@ -1,7 +1,7 @@
 import { Stack } from "../src/stack";
 
 describe("Stack", () => {
-    it("enqueue & front & back", () => {
+    it("push & top", () => {
         const stack = new Stack();
         expect(() => {
             stack.pop();
@@ -18,7 +18,7 @@ describe("Stack", () => {
         }
     });
 
-    it("dequeue & front & back", () => {
+    it("push & pop & top", () => {
         const stack = new Stack();
         expect(() => {stack.top(); }).toThrow();
 
