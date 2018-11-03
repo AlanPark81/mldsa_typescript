@@ -3,9 +3,7 @@ import { Queue } from "../src/queue";
 describe("Queue", () => {
     it("enqueue & front & back", () => {
         const queue = new Queue();
-        expect(() => {
-            queue.front();
-        }).toThrow();
+        expect(() => { queue.front(); } ).toThrow();
 
         for ( let i = 0 ; i < 3 ; i++) {
             expect(() => {
@@ -30,5 +28,7 @@ describe("Queue", () => {
             expect(queue.back()).toBe(2);
             expect(queue.front()).toBe(queue.dequeue());
         }
+        expect( () => { queue.dequeue(); } ).toThrow();
+        expect( () => { queue.back(); } ).toThrow();
     });
 });

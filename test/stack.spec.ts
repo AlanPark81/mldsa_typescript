@@ -30,5 +30,7 @@ describe("Stack", () => {
         while ( ! stack.isEmpty() ) {
             expect(stack.top()).toBe(stack.pop());
         }
+
+        expect(() => {stack.top(); }).toThrow();
     });
 });

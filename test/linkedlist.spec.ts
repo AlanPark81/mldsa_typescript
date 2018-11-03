@@ -96,5 +96,8 @@ describe("LinkedList", () => {
         expect(() => {
             list.getTail();
         }).toThrow();
+        expect(() => {
+            list.getHead();
+        }).toThrow();
     });
 });
