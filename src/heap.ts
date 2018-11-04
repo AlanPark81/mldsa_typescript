@@ -2,12 +2,21 @@ export class Heap<T> {
     private array: T[];
     private count: number;
 
-    constructor(size: number) {
+    constructor(size: number, array?: T[]) {
         if ( size <= 0 ) {
             throw Error("cannot create an empty heap");
         }
-        this.array = new Array<T>(size);
-        this.count = 0;
+        if ( array !== undefined ) {
+            this.array = array;
+            this.array.length = size;
+            for (this.count = 1 ; this.count <= array.length  ; this.count++ ) {
+                this.reorderAll();
+            }
+            this.count = array.length;
+        } else {
+            this.array = new Array<T>(size);
+            this.count = 0;
+        }
     }
 
     public insert(data: T) {
@@ -15,15 +24,7 @@ export class Heap<T> {
             throw Error( "heap full" );
         }
         this.array[this.count++] = data;
-        let currIndex = this.count - 1;
-        let nextIndex = Math.floor(( currIndex - 1 ) / 2 );
-        while ( nextIndex >= 0 && this.array[currIndex] < this.array[nextIndex] ) {
-            const toMove = this.array[currIndex] ;
-            this.array[currIndex] = this.array[nextIndex];
-            this.array[nextIndex] = toMove;
-            currIndex = nextIndex;
-            nextIndex = Math.floor(( currIndex - 1 ) / 2 ) ;
-        }
+        this.reorderAll();
     }
 
     public remove(data: T) {
@@ -64,6 +65,13 @@ export class Heap<T> {
         this.reorderFrom( 0 );
     }
 
+    public sort(): T[] {
+        while ( this.count > 0 ) {
+            this.array[this.count] = this.takeTop();
+        }
+        return this.array;
+    }
+
     private reorderFrom( index: number ) {
         let currIndex = index ;
         while ( currIndex < this.count ) {
@@ -87,6 +95,18 @@ export class Heap<T> {
             this.array[nextRootIndex] = this.array[currIndex];
             this.array[currIndex] = toMove;
             currIndex = nextRootIndex;
+        }
+    }
+
+    private reorderAll() {
+        let currIndex = this.count - 1;
+        let nextIndex = Math.floor(( currIndex - 1 ) / 2 );
+        while ( nextIndex >= 0 && this.array[currIndex] < this.array[nextIndex] ) {
+            const toMove = this.array[currIndex] ;
+            this.array[currIndex] = this.array[nextIndex];
+            this.array[nextIndex] = toMove;
+            currIndex = nextIndex;
+            nextIndex = Math.floor(( currIndex - 1 ) / 2 ) ;
         }
     }
 }
